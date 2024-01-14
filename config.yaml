@@ -1,0 +1,43 @@
+#cookie:
+#  expiry_days: 30
+#  key: some_signature_key
+#  name: some_cookie_name
+#credentials:
+#  usernames:
+#    dbaldwin:
+#      email: dbaldwin@gmail.com
+#      name: admin
+#      password: 123
+#    jsmith:
+#      email: jsmith@gmail.com
+#      name: John Smith
+#      password: $2b$12$veUHDUOxMPpYTgIivZbUqufvgGlv3zX5uZ5np7dmGdmtOB0Z1e2q6
+#    rbriggs:
+#      email: rbriggs@gmail.com
+#      name: Rebecca Briggs
+#      password: $2b$12$uNaTgvGPG9rMbzOJHYaPQePw0DUfp1qHBrSq6l4O304qani6pKFpm
+#    rcouper:
+#      email: rcouper@gmail.com
+#      name: Ross Couper
+#      password: $2b$12$Tir/PbHVmmnt5kgNxgOwMuxNIb2fv2pJ.q71TW8ekvbugCqkye4yu
+#preauthorized:
+#  emails:
+#  - melsby@gmail.com
+
+credentials:
+  usernames:
+    admin:
+      email: jsmith@gmail.com
+      name: John Smith
+      password: $2b$12$HCiUt68h5Rr6U.KOAfhf7.5GfJWZUckL8H807ll5Fmbt6d.qz2J4K
+    rbriggs:
+      email: rbriggs@gmail.com
+      name: Rebecca Briggs
+      password: # Placeholder for hashed password of 'def'
+cookie:
+  expiry_days: 30
+  key: some_signature_key # Must be string
+  name: some_cookie_name
+preauthorized:
+  emails:
+  - melsby@gmail.com
