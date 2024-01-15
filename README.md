@@ -1,13 +1,16 @@
 # chat.ond.digital
 
 ## Intro
-This is the official site of ond chat. This tool is designed for users and customers who wanna launch the digital transformation in traditional industries liek manufacturing with low level of CS knowledge, AIGC, and automated workflow.
+This is the official site of ond chat. This tool is designed for users and customers who wanna launch the digital transformation in traditional industries like manufacturing with low level of CS knowledge, AIGC, and automated workflow.
 
 ## Notice
 For those who have any questions, suggestions, or any other related comments, send an email directly to management@omnind.ca.
 
 ## If you wanna open an issue...
 Please set the labels correctly and follow the formal format of development notes like listing, heading, comments.
+
+## Wiki
+ond chat's wiki will be published during the period of development.
 
 DO NOT merge or PR frequently unless you do believe that you have done the task.
 
