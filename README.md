@@ -1,3 +1,10 @@
+# NOTICE
+For those who have any questions, suggestions, or any other related comments, send an email directly to management@omnind.ca.
+
+## If you wanna open an issue...
+Please set the labels correctly and Follow the formal format of development notes like listing, heading, comments.
+DO NOT merge or PR frequently unless you do believe that you have done the task.
+
 ![](img/logo-long-chatchat-trans-v2.png)
 
 
