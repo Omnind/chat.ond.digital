@@ -1,86 +1,101 @@
-# INTRO
+# chat.ond.digital
+
+## Intro
+This is the official site of ond chat. This tool is designed for users and customers who wanna launch the digital transformation in traditional industries liek manufacturing with low level of CS knowledge, AIGC, and automated workflow.
+
 ## Notice
 For those who have any questions, suggestions, or any other related comments, send an email directly to management@omnind.ca.
 
 ## If you wanna open an issue...
-Please set the labels correctly and Follow the formal format of development notes like listing, heading, comments.
+Please set the labels correctly and follow the formal format of development notes like listing, heading, comments.
+
 DO NOT merge or PR frequently unless you do believe that you have done the task.
 
 ![](img/logo-long-chatchat-trans-v2.png)
 
+🌍 [中文文档](README.md)
 
-🌍 [READ THIS IN ENGLISH](README_en.md)
+📃 **LangChain-Chatchat** (formerly Langchain-ChatGLM):
 
-📃 **LangChain-Chatchat** (原 Langchain-ChatGLM)
-
-基于 ChatGLM 等大语言模型与 Langchain 等应用框架实现，开源、可离线部署的检索增强生成(RAG)大模型知识库项目。
+A LLM application aims to implement knowledge and search engine based QA based on Langchain and open-source or remote
+LLM API.
 
 ---
 
-## 目录
+## Table of Contents
 
-* [介绍](README.md#介绍)
-* [解决的痛点](README.md#解决的痛点)
-* [快速上手](README.md#快速上手)
-  * [1. 环境配置](README.md#1-环境配置)
-  * [2. 模型下载](README.md#2-模型下载)
-  * [3. 初始化知识库和配置文件](README.md#3-初始化知识库和配置文件)
-  * [4. 一键启动](README.md#4-一键启动)
-  * [5. 启动界面示例](README.md#5-启动界面示例)
-* [联系我们](README.md#联系我们)
+- [Introduction](README.md#Introduction)
+- [Pain Points Addressed](README.md#Pain-Points-Addressed)
+- [Quick Start](README.md#Quick-Start)
+    - [1. Environment Setup](README.md#1-Environment-Setup)
+    - [2. Model Download](README.md#2-Model-Download)
+    - [3. Initialize Knowledge Base and Configuration Files](README.md#3-Initialize-Knowledge-Base-and-Configuration-Files)
+    - [4. One-Click Startup](README.md#4-One-Click-Startup)
+    - [5. Startup Interface Examples](README.md#5-Startup-Interface-Examples)
+- [Contact Us](README.md#Contact-Us)
 
+## Introduction
 
-## 介绍
+🤖️ A Q&A application based on local knowledge base implemented using the idea
+of [langchain](https://github.com/hwchase17/langchain). The goal is to build a KBQA(Knowledge based Q&A) solution that
+is friendly to Chinese scenarios and open source models and can run both offline and online.
 
-🤖️ 一种利用 [langchain](https://github.com/hwchase17/langchain) 思想实现的基于本地知识库的问答应用，目标期望建立一套对中文场景与开源模型支持友好、可离线运行的知识库问答解决方案。
+💡 Inspired by [document.ai](https://github.com/GanymedeNil/document.ai)
+and [ChatGLM-6B Pull Request](https://github.com/THUDM/ChatGLM-6B/pull/216) , we build a local knowledge base question
+answering application that can be implemented using an open source model or remote LLM api throughout the process. In
+the latest version of this project, [FastChat](https://github.com/lm-sys/FastChat) is used to access Vicuna, Alpaca,
+LLaMA, Koala, RWKV and many other models. Relying on [langchain](https://github.com/langchain-ai/langchain) , this
+project supports calling services through the API provided based on [FastAPI](https://github.com/tiangolo/fastapi), or
+using the WebUI based on [Streamlit](https://github.com/streamlit/streamlit).
 
-💡 受 [GanymedeNil](https://github.com/GanymedeNil) 的项目 [document.ai](https://github.com/GanymedeNil/document.ai) 和 [AlexZhangji](https://github.com/AlexZhangji) 创建的 [ChatGLM-6B Pull Request](https://github.com/THUDM/ChatGLM-6B/pull/216) 启发，建立了全流程可使用开源模型实现的本地知识库问答应用。本项目的最新版本中通过使用 [FastChat](https://github.com/lm-sys/FastChat) 接入 Vicuna, Alpaca, LLaMA, Koala, RWKV 等模型，依托于 [langchain](https://github.com/langchain-ai/langchain) 框架支持通过基于 [FastAPI](https://github.com/tiangolo/fastapi) 提供的 API 调用服务，或使用基于 [Streamlit](https://github.com/streamlit/streamlit) 的 WebUI 进行操作。
+✅ Relying on the open source LLM and Embedding models, this project can realize full-process **offline private
+deployment**. At the same time, this project also supports the call of OpenAI GPT API- and Zhipu API, and will continue
+to expand the access to various models and remote APIs in the future.
 
-✅ 依托于本项目支持的开源 LLM 与 Embedding 模型，本项目可实现全部使用**开源**模型**离线私有部署**。与此同时，本项目也支持 OpenAI GPT API 的调用，并将在后续持续扩充对各类模型及模型 API 的接入。
+⛓️ The implementation principle of this project is shown in the graph below. The main process includes: loading files ->
+reading text -> text segmentation -> text vectorization -> question vectorization -> matching the `top-k` most similar
+to the question vector in the text vector -> The matched text is added to `prompt `as context and question -> submitte
+to `LLM` to generate an answer.
 
-⛓️ 本项目实现原理如下图所示，过程包括加载文件 -> 读取文本 -> 文本分割 -> 文本向量化 -> 问句向量化 -> 在文本向量中匹配出与问句向量最相似的 `top k`个 -> 匹配出的文本作为上下文和问题一起添加到 `prompt`中 -> 提交给 `LLM`生成回答。
-
-📺 [原理介绍视频](https://www.bilibili.com/video/BV13M4y1e7cN/?share_source=copy_web&vd_source=e6c5aafe684f30fbe41925d61ca6d514)
+📺[video introduction](https://www.bilibili.com/video/BV13M4y1e7cN/?share_source=copy_web&vd_source=e6c5aafe684f30fbe41925d61ca6d514)
 
 ![实现原理图](img/langchain+chatglm.png)
 
-从文档处理角度来看，实现流程如下：
+The main process analysis from the aspect of document process:
 
 ![实现原理图2](img/langchain+chatglm2.png)
 
-🚩 本项目未涉及微调、训练过程，但可利用微调或训练对本项目效果进行优化。
+🚩 The training or fine-tuning are not involved in the project, but still, one always can improve performance by do
+these.
 
-🌐 [AutoDL 镜像](https://www.codewithgpu.com/i/chatchat-space/Langchain-Chatchat/Langchain-Chatchat) 中 `v11` 版本所使用代码已更新至本项目 `v0.2.7` 版本。
+🌐 [AutoDL image](registry.cn-beijing.aliyuncs.com/chatchat/chatchat:0.2.5) is supported, and in v9 the codes are update
+to v0.2.5.
 
-🐳 [Docker 镜像](registry.cn-beijing.aliyuncs.com/chatchat/chatchat:0.2.6) 已经更新到 ```0.2.7``` 版本。
+🐳 [Docker image](registry.cn-beijing.aliyuncs.com/chatchat/chatchat:0.2.5)
 
-🌲 一行命令运行 Docker ：
+## Pain Points Addressed
 
-```shell
-docker run -d --gpus all -p 80:8501 registry.cn-beijing.aliyuncs.com/chatchat/chatchat:0.2.7
-```
+This project is a solution for enhancing knowledge bases with fully localized inference, specifically addressing the
+pain points of data security and private deployments for businesses.
+This open-source solution is under the Apache License and can be used for commercial purposes for free, with no fees
+required.
+We support mainstream local large prophecy models and Embedding models available in the market, as well as open-source
+local vector databases. For a detailed list of supported models and databases, please refer to
+our [Wiki](https://github.com/chatchat-space/Langchain-Chatchat/wiki/)
 
-🧩 本项目有一个非常完整的[Wiki](https://github.com/chatchat-space/Langchain-Chatchat/wiki/) ， README只是一个简单的介绍，__仅仅是入门教程，能够基础运行__。 如果你想要更深入的了解本项目，或者想对本项目做出贡献。请移步 [Wiki](https://github.com/chatchat-space/Langchain-Chatchat/wiki/)  界面
+## Quick Start
 
-## 解决的痛点
+### Environment Setup
 
-该项目是一个可以实现 __完全本地化__推理的知识库增强方案, 重点解决数据安全保护，私域化部署的企业痛点。
-本开源方案采用```Apache License```，可以免费商用，无需付费。
+First, make sure your machine has Python 3.10 installed.
 
-我们支持市面上主流的本地大语言模型和Embedding模型，支持开源的本地向量数据库。
-支持列表详见[Wiki](https://github.com/chatchat-space/Langchain-Chatchat/wiki/)
-
-
-## 快速上手
-
-### 1. 环境配置
-
-+ 首先，确保你的机器安装了 Python 3.8 - 3.10
 ```
 $ python --version
 Python 3.10.12
 ```
-接着，创建一个虚拟环境，并在虚拟环境内安装项目的依赖
+
+Then, create a virtual environment and install the project's dependencies within the virtual environment.
+
 ```shell
 
 # 拉取仓库
@@ -96,58 +111,60 @@ $ pip install -r requirements_webui.txt
 
 # 默认依赖包括基本运行环境（FAISS向量库）。如果要使用 milvus/pg_vector 等向量库，请将 requirements.txt 中相应依赖取消注释再安装。
 ```
-### 2， 模型下载
 
-如需在本地或离线环境下运行本项目，需要首先将项目所需的模型下载至本地，通常开源 LLM 与 Embedding 模型可以从 [HuggingFace](https://huggingface.co/models) 下载。
+### Model Download
 
-以本项目中默认使用的 LLM 模型 [THUDM/ChatGLM3-6B](https://huggingface.co/THUDM/chatglm3-6b) 与 Embedding 模型 [BAAI/bge-large-zh](https://huggingface.co/BAAI/bge-large-zh) 为例：
+If you need to run this project locally or in an offline environment, you must first download the required models for
+the project. Typically, open-source LLM and Embedding models can be downloaded from HuggingFace.
 
-下载模型需要先[安装 Git LFS](https://docs.github.com/zh/repositories/working-with-files/managing-large-files/installing-git-large-file-storage)，然后运行
+Taking the default LLM model used in this project, [THUDM/chatglm2-6b](https://huggingface.co/THUDM/chatglm2-6b), and
+the Embedding model [moka-ai/m3e-base](https://huggingface.co/moka-ai/m3e-base) as examples:
+
+To download the models, you need to first
+install [Git LFS](https://docs.github.com/zh/repositories/working-with-files/managing-large-files/installing-git-large-file-storage)
+and then run:
 
 ```Shell
 $ git lfs install
-$ git clone https://huggingface.co/THUDM/chatglm3-6b
-$ git clone https://huggingface.co/BAAI/bge-large-zh
+$ git clone https://huggingface.co/THUDM/chatglm2-6b
+$ git clone https://huggingface.co/moka-ai/m3e-base
 ```
-### 3. 初始化知识库和配置文件
 
-按照下列方式初始化自己的知识库和简单的复制配置文件
+### Initializing the Knowledge Base and Config File
+
+Follow the steps below to initialize your own knowledge base and config file:
+
 ```shell
 $ python copy_config_example.py
 $ python init_database.py --recreate-vs
  ```
-### 4. 一键启动
 
-按照以下命令启动项目
+### One-Click Launch
+
+To start the project, run the following command:
+
 ```shell
 $ python startup.py -a
 ```
-### 5. 启动界面示例
 
-如果正常启动，你将能看到以下界面
+### Example of Launch Interface
 
-1. FastAPI Docs 界面
+1. FastAPI docs interface
 
 ![](img/fastapi_docs_026.png)
 
-2. Web UI 启动界面示例：
+2. webui page
 
-- Web UI 对话界面：
+- Web UI dialog page:
 
 ![img](img/LLM_success.png)
 
-- Web UI 知识库管理页面：
+- Web UI knowledge base management page:
 
 ![](img/init_knowledge_base.jpg)
 
+### Note
 
-### 注意
+The above instructions are provided for a quick start. If you need more features or want to customize the launch method,
+please refer to the [Wiki](https://github.com/chatchat-space/Langchain-Chatchat/wiki/).
 
-以上方式只是为了快速上手，如果需要更多的功能和自定义启动方式 ，请参考[Wiki](https://github.com/chatchat-space/Langchain-Chatchat/wiki/)
-
-
----
-## 项目里程碑
-
-
----
